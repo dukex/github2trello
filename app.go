@@ -84,13 +84,12 @@ func PayloadHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("PARAMS:", params)
 }
 
-const (
+var (
 	TRELLO_ENDPOINT = "https://api.trello.com/1"
 	TRELLO_API_KEY  = os.Getenv("TRELLO_API_KEY")
 	TRELLO_TOKEN    = os.Getenv("TRELLO_TOKEN")
+	cardRegexp      = regexp.MustCompile(`#(\w+)`)
 )
-
-var cardRegexp = regexp.MustCompile(`#(\w+)`)
 
 func ToTrello(params PaylodParams) {
 	for _, commit := range params.Commits {
